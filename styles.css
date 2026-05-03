@@ -153,7 +153,7 @@ section { position: relative; }
     width: auto;
     display: block;
     /* Swap blue ↔ yellow + tune saturation/contrast to match site brand shades */
-    filter: hue-rotate(180deg) saturate(1.5) contrast(1.15);
+    filter: brightness(0) invert(1);
 }
 .brand-text {
     display: flex;
@@ -623,7 +623,7 @@ section { position: relative; }
     flex-shrink: 0;
     display: block;
     /* Swap blue ↔ yellow + tune saturation/contrast to match site brand shades */
-    filter: hue-rotate(180deg) saturate(1.5) contrast(1.15);
+    filter: brightness(0) invert(1);
 }
 .brand-block-text {
     display: flex;
