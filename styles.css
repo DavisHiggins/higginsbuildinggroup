@@ -1,23 +1,24 @@
 /* ==========================================================================
    HIGGINS BUILDING GROUP — STYLES
+   Editorial / luxury aesthetic. Fraunces (display) + Manrope (text).
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
 
 /* ---------- Tokens ------------------------------------------------------- */
 :root {
-    --bone: #FFFFFF;
-    --paper: #F4F7FB;
-    --paper-2: #E8EFF7;
-    --ink: #0F2547;
-    --ink-soft: #1E3A66;
-    --stone: #4A6280;
-    --mist: #B8C4D6;
+    --bone: #FFFFFF;            /* pure white base */
+    --paper: #F4F7FB;            /* very pale blue-tinted white */
+    --paper-2: #E8EFF7;          /* light blue-gray for accent sections */
+    --ink: #0F2547;              /* deep HBG navy */
+    --ink-soft: #1E3A66;         /* softer navy */
+    --stone: #4A6280;            /* muted blue-gray */
+    --mist: #B8C4D6;             /* light blue-gray */
     --line: rgba(15, 37, 71, 0.14);
     --line-soft: rgba(15, 37, 71, 0.07);
-    --forest: #0A1B36;
-    --brass: #D4A017;
-    --brass-soft: #EDC34A;
+    --forest: #0A1B36;           /* deepest navy for dark sections */
+    --brass: #D4A017;            /* HBG gold/yellow accent */
+    --brass-soft: #EDC34A;       /* lighter yellow for hover states */
 
     --serif: 'Instrument Serif', 'Times New Roman', serif;
     --sans: 'DM Sans', system-ui, sans-serif;
@@ -34,13 +35,89 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
     font-family: var(--sans);
+    font-weight: 400;
     font-size: 17px;
     line-height: 1.65;
     color: var(--ink);
     background: var(--bone);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
 }
 img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul, ol { list-style: none; }
+
+/* Subtle paper grain across the entire site */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+}
+
+/* ---------- Typography --------------------------------------------------- */
+h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+}
+h1 { font-size: clamp(2.5rem, 7vw, 6.5rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(2rem, 4.5vw, 4rem); letter-spacing: -0.02em; }
+h3 { font-size: clamp(1.4rem, 2.4vw, 2rem); letter-spacing: -0.012em; }
+h4 { font-size: 1.15rem; letter-spacing: -0.005em; }
+
+p { font-size: clamp(0.98rem, 1.05vw, 1.075rem); line-height: 1.7; color: var(--ink-soft); }
+.lede { font-size: clamp(1.1rem, 1.5vw, 1.4rem); line-height: 1.55; color: var(--ink-soft); }
+
+.eyebrow {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+.eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: var(--brass);
+    display: inline-block;
+}
+.eyebrow.no-rule::before { display: none; }
+
+.numeral {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: var(--brass);
+    letter-spacing: 0.05em;
+}
+
+/* ---------- Layout primitives ------------------------------------------- */
+.container { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad-x); position: relative; z-index: 2; }
+.container-narrow { max-width: 920px; margin: 0 auto; padding-inline: var(--pad-x); position: relative; z-index: 2; }
+
+section { position: relative; }
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin: 0;
+}
 
 /* ---------- Navigation --------------------------------------------------- */
 .nav {
@@ -49,44 +126,35 @@ img { display: block; max-width: 100%; height: auto; }
     z-index: 100;
     padding: 1.25rem var(--pad-x);
     background: var(--ink);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.4s var(--ease), padding 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
-
+.nav.scrolled {
+    background: var(--forest);
+    padding: 0.85rem var(--pad-x);
+    box-shadow: 0 4px 24px rgba(10, 27, 54, 0.25);
+}
 .nav-inner {
     max-width: var(--maxw);
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
 }
-
 .brand {
     display: flex;
     align-items: center;
     gap: 0.9rem;
+    line-height: 1;
 }
-
 .brand-logo {
     height: 44px;
     width: auto;
     display: block;
-    /* Removed color filter — using new swapped logo directly */
+    /* Swap blue ↔ yellow + tune saturation/contrast to match site brand shades */
+    filter: hue-rotate(180deg) saturate(1.5) contrast(1.15);
 }
-
-/* ---------- Footer ------------------------------------------------------- */
-.footer {
-    background: var(--ink);
-    color: var(--mist);
-    padding: 3.5rem 0 2rem;
-}
-
-.footer-logo {
-    height: 88px;
-    width: auto;
-    display: block;
-    /* Removed color filter — using new swapped logo directly */
-}
-
-/* (rest of file remains unchanged) */
 .brand-text {
     display: flex;
     flex-direction: column;
